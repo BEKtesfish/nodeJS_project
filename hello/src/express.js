@@ -5,8 +5,9 @@ import {errorHandler} from './middleware/errorHandler.js'
 export const app = express()
 
 
-
+app.use(express.json())
 app.use('/', router)
+
 app.use(logger('dev',{immediate:true}))
 
 // Error for Handling 404
