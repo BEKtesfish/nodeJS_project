@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "npx cross-env NODE_ENV=test npx mocha test/**/*.test.js",
-    "clean": "rm -rf node_modules/ package-log.json",
+    "clean": "npx rimraf node_modules/ package-log.json",
     "start": "node --env-file=.env app",
     "dev": "npx nodemon --env-file=.env app",
     "eslint": "npx eslint .",
