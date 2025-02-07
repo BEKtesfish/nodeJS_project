@@ -14,10 +14,12 @@
         <li>
             <h2><%= note.title%></h2>
             <p><%= note.content.substring(1,100) %>...</p>
+          
             <p><%= new Date(note.timestamp)%></p>
             <a href="/note/<%=note.id%>" >View more</a>
         </li>
       <%})%>
     </ul>
+    <a href="/createNote">Create New Note</a>
     </body>
 </html>
