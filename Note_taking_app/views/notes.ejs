@@ -9,6 +9,11 @@
     </head>
     <body>
       <h1>All Notes</h1>
+      <form action="/notes">
+        <label for="searchNote">Search:</label>
+        <input type="text" id="searchNote" name="searchTerm">
+        <Button> Search </Button>
+      </form>
       <ul>
       <% notes.forEach( note => {%>
         <li>

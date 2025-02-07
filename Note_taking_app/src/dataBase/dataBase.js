@@ -11,8 +11,10 @@ let notes =[
     }
 ]
 
-export function getNotes(){
-    return notes
+export function getNotes(searchTerm){
+    if(!searchTerm)  return notes
+    return notes.filter(note => note.title.includes(searchTerm) || note.content.includes(searchTerm));
+  
 }
 
 export function getNote(id){

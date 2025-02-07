@@ -25,7 +25,8 @@ app.get("/note/:id", (req, res) => {
     })
 })
 app.get("/notes", (req, res) => {
-    const notes = getNotes()
+    const searchTerm = req.query.searchTerm;
+    const notes = getNotes(searchTerm);
     res.render("notes.ejs",{
         notes,
     })
