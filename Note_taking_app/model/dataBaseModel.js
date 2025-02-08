@@ -1,4 +1,6 @@
-let notes =[
+import {pool} from './dataBase.js';
+
+/*let notes =[
     {   id: 1,
         title:"First Note",
         timestamp:Date.now(),
@@ -10,28 +12,40 @@ let notes =[
         content:"To find the sub-ingredients, look at the package of each ingredient used and read the ingredient list. All-purpose flour may have these sub-ingredients: enriched, unbleached wheat flour, malted barley flour, niacin, iron, thiamin mononitrate, riboflavin, and folic acid. Similarly, chocolate morsels may have these ingredients: sugar, chocolate, milk fat, cocoa butter, and soy lecithin. Some ingredients do not have any sub-ingredients. Salt typically does not have any sub-ingredients."
     }
 ]
+*/
 
-export function getNotes(searchTerm){
-    if(!searchTerm)  return notes
-    return notes.filter(note => note.title.includes(searchTerm) || note.content.includes(searchTerm));
+export async function getNotes(searchTerm){
+    let notes;
+    if(!searchTerm){
+        [notes] = await pool.query("select * from note")
+        return notes
+    } else{
+        [notes] = await pool.query(
+            `SELECT * FROM note WHERE title LIKE ? OR contents LIKE ?`,
+            [`%${searchTerm}%`, `%${searchTerm}%`]
+        )
+        return notes
   
-}
-
-export function getNote(id){
-    return notes.find(note=>note.id===id)
-}
-
-export function addNote(note){
-    const id= notes.at(-1).id + 1
-    notes.push({
-        ...note,
-        id:id ,
-        timestamp:Date.now()
-    })
-}
- export function removeNote(id){
-    const index= notes.findIndex(u => u.id === id)
-    if(index!==-1){
-        notes.splice(index,1)
     } 
+    
+}
+
+export async function getNote(id){
+    const  [[note]]= await pool.query("SELECT * FROM note WHERE id = ?",
+        [`${id}`]
+    )
+    console.log(note)
+    return note
+}
+
+export async function addNote(note){
+    await pool.query("Insert INTO note (title,contents) VALUES (?,?)",
+        [`${note.title}`,`${note.content}`])
+
+}
+export async function  removeNote(id){
+   await pool.query("DELETE FROM note WHERE id =?",
+    [`${id}`]
+   )
+   
 }

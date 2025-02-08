@@ -18,9 +18,9 @@
       <% notes.forEach( note => {%>
         <li>
             <h2><%= note.title%></h2>
-            <p><%= note.content.substring(1,100) %>...</p>
+            <p><%= note.contents.substring(1,100) %>...</p>
           
-            <p><%= new Date(note.timestamp)%></p>
+            <p><%= new Date(note.created)%></p>
             <a href="/note/<%=note.id%>" >View more</a>
         </li>
       <%})%>
