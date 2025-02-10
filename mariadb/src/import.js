@@ -1,4 +1,4 @@
-import db from '../config/database.js';
+import db from './config/database.js';
 console.log( "hello "+process.env.DATABASE_PASSWORD)
 
 const con = await db.initialize();
