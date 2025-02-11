@@ -21,6 +21,11 @@ class UserModel {
         const result = await databaseService.query(query, [id]);
         return result.affectedRows >0
     }
+    async getUser(id){
+        const query ="SELECT * FROM users Where id = ?";
+        return  await databaseService.query(query,[id]);
+
+    }
 }
 
 export default new UserModel();

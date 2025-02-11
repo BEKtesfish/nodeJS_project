@@ -47,10 +47,27 @@ class UserController{
             OutputHandler.showError("Couldn't delete user",e);
         }
     }
+    async showUser(id){
+      
+            
+        try{
+            const user = await userModel.getUser(id);
+          
+          
+            if(user){
+                OutputHandler.showUser(user);
+            }else{
+                OutputHandler.showError(`User with ID: ${id} not found`);
+            }
+        }catch(e){
+            OutputHandler.showError("Couldn't fetch user",e);
+        }
+    }
 
   
 
 
 
 }
+
 export default new UserController();

@@ -3,6 +3,14 @@
  * @class
  */
 class OutputHandler {
+     /**
+     * show a user
+     * @params {Array} user -The user selected
+     */
+     showUser(user){
+        console.table(user);
+        
+    }
     /**
      * show the List of users
      * @params {Array} users -The list of all the users
