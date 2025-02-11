@@ -1,4 +1,4 @@
-import userController from './controller/UserController.js';
+import UserController from './controller/UserController.js';
 import InputHandler from  './view/InputHandler.js';
 
 class Menu {
@@ -15,14 +15,14 @@ class Menu {
         const userInput = await InputHandler.ask("Select an option: ")
         switch(userInput){
             case "1":
-                await userController.showUsers();
+                await UserController.showUsers();
                 break;
 
             case "2":
                 const nameToAdd = await InputHandler.ask("Enter username: ")
                 const emailToAdd = await InputHandler.ask("Enter email: ")
                 const passwordToAdd = await InputHandler.ask("Enter password: ")
-                userController.addUser(nameToAdd, emailToAdd, passwordToAdd);
+                UserController.addUser(nameToAdd, emailToAdd, passwordToAdd);
                 break;
 
             case "3":
@@ -32,14 +32,14 @@ class Menu {
                 )
                 const newName = await InputHandler.ask("Enter new username: ")
                 const newEmail = await InputHandler.ask("Enter new email: ")
-                userController.updateUser(idToUpdate, newName, newEmail);
+                UserController.updateUser(idToUpdate, newName, newEmail);
                 break;
             case "4":
                 const idToDelete = parseInt(
                     await InputHandler.ask("Enter ID to delete: "),
                     10
                 )
-                await  userController.deleteUser(idToDelete)
+                await  UserController.deleteUser(idToDelete)
                 break;
             case "5":
                 console.log("Exiting the application ...");

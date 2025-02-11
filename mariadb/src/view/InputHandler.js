@@ -1,4 +1,4 @@
-import  readline from "readline/promise"
+import  readline from "readline/promises"
 import {stdin as input , stdout as output} from "process"
 
 /**

@@ -8,7 +8,8 @@ class OutputHandler {
      * @params {Array} users -The list of all the users
      */
     showUsers(users){
-        console.tabel(users);
+        console.table(users);
+        
     }
     /**
      * show a success message
