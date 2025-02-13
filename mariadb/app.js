@@ -1,11 +1,9 @@
+import {app} from './src/express.js';
 import databaseService from "./src/service/DatabaseService.js"
-import menu from "./src/menu.js"
 
-await databaseService.connect();
+const port = process.env.PORT || 3000;
 
-do{
-    menu.show();
-}while(await menu.handleInput());
-
-await databaseService.closeConnection();
-process.exit(0);
+app.listen(port,async ()=>{
+    await databaseService.connect();
+    console.log(`listening on http://localhost:${port}`);
+})

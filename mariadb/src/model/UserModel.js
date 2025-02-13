@@ -1,14 +1,68 @@
 import databaseService from '../service/DatabaseService.js';
 class UserModel {
+    verifyUser(id) {
+        const int = parseInt(id)
+        if (!Number.isInteger(int)) {
+    
+          throw new Error("Invalid user id");
+        } else {
+          return int;
+        }
+    }
+    
+    
+    async searchUser(name=null, email = null){
+        let query = ""
+        const args =[]
+            
+        if (name || email) {
+            query = "SELECT * FROM users WHERE  "
 
-    async getUsers(){
-       const query = "select * from users"
-       return await databaseService.query(query);
+            if (name) {
+                query += "  username LIKE ?";
+                args.push(`%${name}%`);
+            }
+
+            if (email) {
+                if (name){
+                    query+= " OR ";
+                }
+                query += "email LIKE ?";
+                args.push(`%${email}%`);
+            }
+        }
+            console.log("query: ",query)
+            
+            return await databaseService.query(query, args);
+        }
+
+    async getUsers(name=null,email=null){
+       let query = "select * from users"
+         const args =[] 
+       if (name || email) {
+         query += " WHERE  "
+
+        if (name) {
+            query += "  username LIKE ?";
+            args.push(`%${name}%`);
+        }
+
+        if (email) {
+            if (name){
+                query+= " OR ";
+            }
+            query += "email LIKE ?";
+            args.push(`%${email}%`);
+        }
+    }
+        console.log("query: ",query)
+       return await databaseService.query(query,args);
     }
     async addUser(nameToAdd, emailToAdd, passwordToAdd){
         const query = "INSERT INTO users (username, email, password) VALUES (?,?,?);"
-        const [result] =  await databaseService.query(query, [nameToAdd, emailToAdd, passwordToAdd]);
-        return result.insertid
+        const result =  await databaseService.query(query, [nameToAdd, emailToAdd, passwordToAdd]);
+        console.log(result);
+        return result.insertId
 
     }
     async updateUser(id,name,email){

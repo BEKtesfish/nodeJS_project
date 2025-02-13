@@ -14,6 +14,7 @@ class DatabaseService {
         }
         process.on('SIGINT', ()=>this.closeConnection())
         process.on('SIGTREM', ()=>this.closeConnection())
+
     }
     async query(queryString,params =[]){
         try{
