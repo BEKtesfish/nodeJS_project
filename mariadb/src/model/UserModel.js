@@ -38,7 +38,7 @@ class UserModel {
 
     async getUsers(name=null,email=null){
        let query = "select * from users"
-         const args =[] 
+        const args =[] 
        if (name || email) {
          query += " WHERE  "
 
@@ -78,6 +78,13 @@ class UserModel {
     async getUser(id){
         const query ="SELECT * FROM users Where id = ?";
         return  await databaseService.query(query,[id]);
+
+    }
+    async deleteUsers(){
+        const query = "DELETE FROM users;"
+        
+        const result =await databaseService.query(query);
+        return result.affectedRows > 0;
 
     }
 }

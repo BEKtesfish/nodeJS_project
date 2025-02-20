@@ -1,4 +1,4 @@
-import OutputHandler from '../view/OutputHandler.js';
+
 
 import userModel from '../model/UserModel.js';
 
@@ -27,15 +27,21 @@ UserController.showUsers = async (req,res)=>{
 
 UserController.addUser = async (req,res)=>{
         
-        console.log(req.body)
-        const id = await userModel.addUser(req.body.name, req.body.email, req.body.password);
-        console.log(id)
-        res.status(201).json({
-            message: `User added successfully with id ${id}`
-        })
+        try{
+            const id = await userModel.addUser(req.body.name, req.body.email, req.body.password,req.body.role);
+            console.log(id)
+            res.status(201).json({
+                message: `User added successfully with id ${id}`
+         
+           })
+        }catch(err) {
+            res.status(400).json({
+                error: "User already exists and can not register again",
+            })
+        }
         
-
-}
+        
+    }
 UserController.searchUser= async (req, res) => {
     try{
         console.log("searching user", req.query)
@@ -56,6 +62,36 @@ UserController.searchUser= async (req, res) => {
             error: err.message
         });
     }
+}
+UserController.login = async (req,res)=> {
+    try{
+        const response =await userModel.login(req.body.name,req.body.password)
+       res.setHeader("Authorization",`Bearer ${response}`)
+       res.status(200).json({
+        message: "loged in successfully"
+       })
+        
+    }catch(e){
+        res.status(500).send({
+            message: e.message
+        });
+    }
+        
+}
+UserController.token =  async (req,res)=>{
+    try{
+    if( res.locals.jwt){
+        res.status(200).json({
+            message: "Token is valid"
+        });
+    }
+    }catch(e){
+        res.status(403).json({
+            message: "Token is not valid"
+        });
+    }
+
+
 }
 
 
@@ -135,7 +171,8 @@ UserController.showUser= async (req,res)=>{
       
             
         try{
-            const user = await userModel.getUser(req.userId);
+            
+            const user = await userModel.getUser(req.query.name);
           
           
             if(user){
