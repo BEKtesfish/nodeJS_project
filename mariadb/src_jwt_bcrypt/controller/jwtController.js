@@ -64,12 +64,23 @@ UserController.searchUser= async (req, res) => {
     }
 }
 UserController.login = async (req,res)=> {
+ 
     try{
         const response =await userModel.login(req.body.name,req.body.password)
-       res.setHeader("Authorization",`Bearer ${response}`)
-       res.status(200).json({
-        message: "loged in successfully"
-       })
+        res.cookie('authToken',response.token,{
+            httpOnly:true,
+            secure:false,
+            maxAge:3600000,
+
+        }).redirect("/profilePage");
+
+        /*
+        res.json({
+            message: "Login successful",
+            token: response.token
+        })
+        */
+      
         
     }catch(e){
         res.status(500).send({
@@ -173,7 +184,6 @@ UserController.showUser= async (req,res)=>{
         try{
             
             const user = await userModel.getUser(req.query.name);
-          
           
             if(user){
                 res.status(200).json(user);

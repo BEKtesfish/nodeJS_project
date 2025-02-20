@@ -1,0 +1,82 @@
+<!DOCTYPE html5>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+        <title>CRUD website</title>
+
+    </head>
+    <header>
+      <h1>Please enter you username and password</h1>
+    </header>
+    <body>
+        <form action="/v1/api/login" method="POST">
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="name"><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password"><br><br>
+            <button>Submit</button>
+        </form>
+        /
+        <script>
+            /*
+            document.getElementById("form").addEventListener("submit", async (e)=>{
+                e.preventDefault();
+                let username = document.getElementById("username").value;
+                let password = document.getElementById("password").value;
+               fetch("/v1/api/login",{
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name:username, 
+                        password:password})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    if(data.token){
+                        localStorage.setItem('authToken',data.token)
+                        console.log(data.message);
+
+                        let authToken = localStorage.getItem('authToken')
+                        console.log("type of : ", authToken);
+              
+                        fetch('/profilePage',{
+                            method: 'GET',
+                            headers: {
+                                'Authorization': `Bearer ${authToken}`
+                            }
+                        })
+                        .then(response => {
+                            if(!response.ok){
+                                throw new Error('Unauthorized')
+                            }
+                        return response.json()
+                        })
+                        .then(data => console.log(data))
+                        .catch(err => {
+                        
+                            if(err.message=== 'Unauthorized'){
+                                console.log("Token expired or invalid. Redirecting to home...");
+                                window.location.replace('/') 
+                            }else{
+                                console.log(err)
+                            }
+                            
+                            console.log(err)
+                        })
+                            }
+                })
+                .catch(err => console.error("Error:", err));
+                
+                    
+                
+               
+            })
+                */
+        </script>
+    
+     </body>
+</html> 

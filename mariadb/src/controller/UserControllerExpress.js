@@ -1,4 +1,4 @@
-import OutputHandler from '../view/OutputHandler.js';
+import OutputHandler from '../views/OutputHandler.js';
 
 import userModel from '../model/UserModel.js';
 

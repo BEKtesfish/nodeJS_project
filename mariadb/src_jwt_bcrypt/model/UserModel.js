@@ -91,7 +91,9 @@ class UserModel {
 
         const token = jwt.createJwtToken(user.username,user.role,user.email)
         console.log("this tokenn" +token)
-        return token;
+        return {
+           token: token,
+            user:user};
 
         
     }
