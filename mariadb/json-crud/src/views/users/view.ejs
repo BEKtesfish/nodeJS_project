@@ -1,0 +1,22 @@
+
+<%- include('header') -%>
+<h2>View user <%= user.username %></h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <td><%= user.id %></td>
+    </tr>
+    <tr>
+        <th>Username</th>
+        <td><%= user.username %></td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td><%= user.email %></td>
+    </tr>
+    <tr>
+        <th>Role</th>
+        <td><%= user.role %></td>
+    </tr>
+</table>
+<span><a href="./crud/users/<%= user.id %>/update">Update</a> | <a href="./crud/users/<%= user.id %>/delete">Delete</a></span>

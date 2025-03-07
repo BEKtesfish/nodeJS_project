@@ -1,0 +1,27 @@
+<%- include("header") %>
+<form id="deleteForm" style="display:flex; flex-direction:column; width:500px; margin:auto; padding:20px; gap:10px;" method="POST">
+    <label for="userId">User id:</label>
+    <input type="text" id="userId" name="userId" value= "<%= user.id%>" readonly>
+    <label for="name">User name:</label>
+    <input type="text" id="name" name="name" value = "<%= user.username%>" readonly>
+    <button type="submit">Delete</button>
+</form>
+<!-- <script>
+     document.getElementById("deleteForm").addEventListener("submit", (e)=>{
+        e.preventDefault();
+        const userId = document.getElementById("userId").value;
+        fetch(`http://localhost:3001/crud/users/${userId}/delete`, {
+            method: "DELETE",
+            headers:{
+                "content-type": "application/json"
+            },
+            body:JSON.stringify({userId})
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            alert("user deleted")
+        });
+
+     });
+</script> -->

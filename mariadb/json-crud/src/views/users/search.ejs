@@ -1,0 +1,12 @@
+<%- include("header") %>
+<h1>Search</h1>
+<hr/>
+
+<form style="display:flex; flex-direction:column; width:500px; margin:auto; padding:20px; gap:10px;"  >
+    <label for="search" >Search: </label>
+    <input type="text" id="search" name="search">
+    <button type="submit">Search</button>
+</form>
+<% if(users?.length){ %>
+<%- include('users_table') -%>
+<%}%>

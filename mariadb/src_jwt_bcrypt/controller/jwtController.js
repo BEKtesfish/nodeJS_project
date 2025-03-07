@@ -30,10 +30,7 @@ UserController.addUser = async (req,res)=>{
         try{
             const id = await userModel.addUser(req.body.name, req.body.email, req.body.password,req.body.role);
             console.log(id)
-            res.status(201).json({
-                message: `User added successfully with id ${id}`
-         
-           })
+            res.redirect("/loginPage")
         }catch(err) {
             res.status(400).json({
                 error: "User already exists and can not register again",

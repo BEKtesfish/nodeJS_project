@@ -1,0 +1,10 @@
+<%- include('header') %>
+<h1>Guess</h1>
+<hr/>
+<form action ="/guess/guess" method="POST">
+    <label for="guess">Guess a number (1-100):</label>
+    <input type="number" id="guess" name="guessedNumber" value = "<%= lastguess %>" required min="1" max="100">
+    <button type="submit">Guess</button>
+</form>
+
+<p>You have  made <%= numGuesses ?? 0 %> guesses.</p>
