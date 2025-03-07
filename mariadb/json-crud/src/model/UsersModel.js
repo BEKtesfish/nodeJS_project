@@ -91,6 +91,35 @@ class UsersModel {
     const result = await databaseService.query(query)
     return result.affectedRows > 0
   }
+  async login(name,password){
+    const query = 'SELECT * FROM user_jwt WHERE username =?'
+    const arg =[name]
+    const user = await databaseService.query(query,arg)
+    if(user.length === 0){
+      throw new Error('User not found');
+    }
+    const match = await compareHash(password,user[0].password);
+    if(!match){
+      throw new Error('Incorrect password');
+    }
+    return user[0];
+
+
+  }
+  async changePass(password,userId) {
+    try{
+      const hashedPassword = await hash(password)
+      const query = 'UPDATE user_jwt SET password =? WHERE id =?'
+      const args =[hashedPassword,userId]
+      const result = await databaseService.query(query, args)
+      return result.affectedRows > 0
+    }catch(e){
+      throw new Error(e.message)
+    }
+
+
+
+  }
 }
 
 export default new UsersModel()

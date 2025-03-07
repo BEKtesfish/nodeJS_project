@@ -68,7 +68,10 @@ class UsersController {
       const data= req.body
       if(data["first-password"] !== data["second-password"]){
         req.session.flashMessage = `User first-password and second-password are not the same`
-        res.redirect('.')
+        req.session.username = data.name || null;
+        req.session.useremail = data.email || null;
+
+        res.redirect('./create')
       }else{
         const user = {
         username: data.name,
@@ -88,7 +91,11 @@ class UsersController {
   }
 
   async createUser(req,res,next) {
-    res.render('users/create')
+    const user = {
+      name:req.session.username ?? null,
+      email:req.session.useremail ?? null
+    }
+    res.render('users/create',{user})
 
   }
 
@@ -178,6 +185,52 @@ class UsersController {
       search
     }
     res.render('users/search', data)
+  }
+
+  async login(req, res,next) {
+    res.render('users/login')
+  }
+  async loginPost(req, res,next) {
+    const { name, password } = req.body
+    try{
+      const user = await usersModel.login(name,password)
+       req.session.flashMessage = 'loged in successfully'
+      res.redirect(`./${user.id}`)
+    }catch(e){
+      if(e.message === "User not found"){
+        req.session.flashMessage = 'User not found create account to login'
+        res.redirect('./create')
+      }else{
+        req.session.flashMessage = 'Invalid credentials'
+        res.redirect('./login')
+      }
+      
+    
+    }
+  
+
+  }
+  async changePassword(req, res,next){
+    res.render('users/changepassword')
+
+  }
+  async changePasswordPost(req, res,next){
+    const {newPassword, confirmPassword } = req.body
+    const id = req.userId
+    console.log(id)
+    console.log(newPassword,confirmPassword)
+    if(newPassword !== confirmPassword){
+        req.session.flashMessage = `User first-password and second-password are not the same`
+        res.redirect('./changepassword')
+    }else{
+      const success = await usersModel.changePass(newPassword,req.userId)
+      if(!success){
+        throw new Error('User not found')
+      }
+      req.session.flashMessage = `changed password of user with id ${id} succesfully`
+      res.redirect(`.`)
+      res.status(201).json(id)}
+
   }
 }
 
