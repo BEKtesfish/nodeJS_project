@@ -19,6 +19,7 @@ app.use(expressLayouts)
 
 app.use(localsMiddleware.injectBaseUrl)
 app.use(localsMiddleware.flashMessage)
+app.use(localsMiddleware.authenticatedUser)
 
 
 app.use(express.urlencoded({ extended: false }))

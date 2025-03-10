@@ -1,8 +1,14 @@
 <h1>CRUD Users</h1>
 
 <na>
-    <a href="./crud/users">View all</a>
-    <a href="./crud/users/create">Create new user</a>
-    <a href="./crud/users/search">Search</a>
-    <a href="./crud/users/login">Login</a>
+    <%if(Authenticated.role === 'admin'){%>
+        <a href="./crud/users">View all</a>
+        <a href="./crud/users/create">Create new user</a>
+        <a href="./crud/users/search">Search</a>
+    <%}else if(Authenticated.role === "user"){%>
+        <a href="./crud/users/<%= locals.Authenticated?.id %>">profile</a>
+        <a href="#">Logout</a>
+    <%}%>
+
+
 </nav>

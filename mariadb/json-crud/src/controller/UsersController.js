@@ -188,13 +188,15 @@ class UsersController {
   }
 
   async login(req, res,next) {
+    res.locals
     res.render('users/login')
   }
   async loginPost(req, res,next) {
     const { name, password } = req.body
     try{
       const user = await usersModel.login(name,password)
-       req.session.flashMessage = 'loged in successfully'
+      req.session.flashMessage = 'loged in successfully'
+      req.session.Authenticated = user;
       res.redirect(`./${user.id}`)
     }catch(e){
       if(e.message === "User not found"){

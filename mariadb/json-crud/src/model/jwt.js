@@ -17,6 +17,7 @@ model.createJwtTken =(username, role, email) =>{
         expiresIn: '1h'
     }
     const token = jwt.sign(payload, process.env.JWT_SECRET,options)
+    return token
 }
 
 model.decode = (token) =>{

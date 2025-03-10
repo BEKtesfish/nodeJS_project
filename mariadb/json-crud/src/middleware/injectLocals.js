@@ -11,3 +11,7 @@ middleware.flashMessage = (req, res, next)=>{
     req.session.flashMessage = null;
     next();
 }
+middleware.authenticatedUser = (req,res,next)=>{
+    res.locals.Authenticated = req.session?.Authenticated 
+    next()
+}
