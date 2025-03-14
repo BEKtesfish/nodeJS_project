@@ -38,4 +38,5 @@ errorHandler.errorDefault = (err, req, res, next) => {
     status: statusCode,
     message
   })
+  
 }

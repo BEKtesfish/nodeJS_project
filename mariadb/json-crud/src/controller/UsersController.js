@@ -34,11 +34,12 @@ class UsersController {
   async getAllUsers (req, res, next) {
     try {
       const users = await usersModel.getAllUsers()
-      res.render('users/view_all', {users})
+      res.render('admin/view_all', {users})
     } catch (error) {
       next(error)
     }
   }
+
 
   async getUser (req, res, next) {
     try {
@@ -98,7 +99,9 @@ class UsersController {
     res.render('users/create',{user})
 
   }
-
+  async frontPage(req, res) {
+    res.render('users/frontPage')
+  }
   /**
    * Update an existing user in the database.
    *
@@ -110,6 +113,12 @@ class UsersController {
    * @param next
    * @param {string} email - The new email of the user.
    */
+
+  async logout(req, res, next){
+    delete req.session?.Authenticated
+    req.session.flashMessage ="seccusfully logged out"
+    res.redirect('../')
+  }
 
   async updateUserPost(req, res, next) {
  
